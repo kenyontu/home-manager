@@ -18,7 +18,7 @@ vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.opt.tabstop = 2
 vim.opt.cursorline = true
-vim.opt.number = true
+vim.opt.number = false
 --vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shiftwidth = 2
@@ -28,7 +28,8 @@ vim.opt.hidden = true
 vim.opt.updatetime = 300
 
 -- Force the gutter to stay open instead of constantly openning and closing
-vim.opt.signcolumn = "yes"
+--vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -68,8 +69,22 @@ keymap("i", "<F10>", "<Nop>", opts)
 keymap("i", "<F11>", "<Nop>", opts)
 keymap("i", "<F12>", "<Nop>", opts)
 
+-- Center after a jump
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
 -- Runs :w when typing :W 
 vim.api.nvim_create_user_command("W", "w", {})
 
 -- Runs :q when typing :Q 
 vim.api.nvim_create_user_command("Q", "q", {})
+
+for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+    local default_diagnostic_handler = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, result, context, config)
+        if err ~= nil and err.code == -32802 then
+            return
+        end
+        return default_diagnostic_handler(err, result, context, config)
+    end
+end

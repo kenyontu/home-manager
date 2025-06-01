@@ -106,6 +106,7 @@ USE_POWERLINE="true"
 # Env variables
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/scripts
+export PATH=$PATH:~/.cache/npm/global/bin
 
 source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 source <(fzf --zsh)

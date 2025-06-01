@@ -4,5 +4,6 @@ then
 fi
 
 picom -f &
+fcitx5 &
 
 exec dwm

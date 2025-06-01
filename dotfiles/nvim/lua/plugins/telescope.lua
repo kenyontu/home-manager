@@ -62,5 +62,6 @@ return {
     keymap('n', '<space><space>', builtin.find_files, opts)
     keymap('n', '<space>fg', builtin.live_grep, opts)
     keymap('n', '<space>b', "<Cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<CR>", opts)
+    keymap("n", "<space>fr", builtin.resume, opts)
   end
 }

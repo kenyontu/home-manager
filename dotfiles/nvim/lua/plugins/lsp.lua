@@ -50,14 +50,14 @@ return {
         ["rust-analyzer"] = {
           check = {
             extraArgs = {"-r"}
-          }
+          },
+          refreshSupport = false,
         }
       },
     }
 
     lspconfig['tailwindcss'].setup {
       capabilities = capabilities,
-      filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ", "rust" },
       init_options = {
         userLanguages = {
           rust = "html"
@@ -105,6 +105,8 @@ return {
     lspconfig["phpactor"].setup {}
 
     lspconfig["gopls"].setup {}
+
+    lspconfig["eslint"].setup {}
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics, {

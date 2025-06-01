@@ -15,7 +15,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -39,6 +39,13 @@
     xsel
     pulseaudio
     acpi
+    scrot
+    bluetui
+    # libva
+
+    waybar
+    hyprpaper
+    wofi
 
     miniserve
     p7zip
@@ -55,33 +62,41 @@
     ffmpeg
     fzf
     lsd
-    lua51Packages.tiktoken_core
+    # lua51Packages.tiktoken_core
     lynx
+    # epson-escpr
+    # epson-escpr2
 
-    quickemu
+    librewolf
+    # quickemu
     gimp
-    obs-studio
     anki
-    ollama-rocm
+    # ollama-rocm
     obsidian
     chromium
+    zoom-us
+    immersed
+    bruno
 
     git
     gh
     lazygit
 
-    nodejs
     rustup
-    luajitPackages.jsregexp
-    eslint
-    tailwindcss
-    tailwindcss-language-server
-    vscode-langservers-extracted
-    typescript-language-server
-    svelte-language-server
-    prettierd
+
+    nodejs
     nodePackages.prettier
     nodePackages.jsonlint
+
+    luajitPackages.jsregexp
+
+    eslint
+    tailwindcss
+    prettierd
+
+    vscode-langservers-extracted
+    svelte-language-server
+    typescript-language-server
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -121,6 +136,16 @@
     ".config/the-way/.the-way.toml" = {
       source = ./dotfiles/.the-way.toml;
     };
+
+    ".config/hypr" = {
+      source = ./dotfiles/hypr;
+      recursive = true;
+    };
+
+    ".config/waybar" = {
+      source = ./dotfiles/waybar;
+      recursive = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -143,10 +168,25 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     THE_WAY_CONFIG = "${config.home.homeDirectory}/.config/the-way/.the-way.toml";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+    SDL_IM_MODULE = "fcitx";
+    GLFW_IM_MODULE = "ibus";
+    LIBVA_DRIVER_NAME = "radeonsi";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   programs.gh.enable = true;
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+    ];
+  };
 }

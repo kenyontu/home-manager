@@ -7,7 +7,7 @@ return {
     nls.setup({
       sources = {
         -- diagnostics
-        nlsb.diagnostics.eslint,
+        --nlsb.diagnostics.eslint,
         -- nlsb.diagnostics.write_good, -- for markdown
         nlsb.diagnostics.jsonlint,
       },
