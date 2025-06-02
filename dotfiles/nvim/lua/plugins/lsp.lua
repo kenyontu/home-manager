@@ -40,12 +40,15 @@ return {
     local lspconfig = require 'lspconfig'
     local configs = require 'lspconfig.configs'
 
-    lspconfig['ts_ls'].setup{
+    vim.lsp.config('*', {
       capabilities = capabilities,
-    }
+      root_markers = { '.git' }
+    })
 
-    lspconfig['rust_analyzer'].setup {
-      capabilities = capabilities,
+    vim.lsp.enable('ts_ls')
+
+    vim.lsp.enable('rust_analyzer')
+    vim.lsp.config('rust_analyzer',  {
       settings = {
         ["rust-analyzer"] = {
           check = {
@@ -54,10 +57,10 @@ return {
           refreshSupport = false,
         }
       },
-    }
+    })
 
-    lspconfig['tailwindcss'].setup {
-      capabilities = capabilities,
+    vim.lsp.enable('tailwindcss')
+    vim.lsp.config('tailwindcss', {
       init_options = {
         userLanguages = {
           rust = "html"
@@ -72,41 +75,29 @@ return {
           "\\.\"?([^.\"]+)\"?"
         },
       },
-    }
 
-    lspconfig.html.setup {
-      capabilities = capabilities,
-    }
+    })
 
-    lspconfig['cssls'].setup {
-      capabilities = capabilities,
-    }
-
-    lspconfig["prismals"].setup {
-      capabilities = capabilities,
-    }
-
-    lspconfig["dartls"].setup {}
-
-    lspconfig["svelte"].setup {}
-
-    lspconfig["volar"].setup {}
+    vim.lsp.enable('html')
+    vim.lsp.enable('cssls')
+    vim.lsp.enable('prismals')
+    vim.lsp.enable('dartls')
+    vim.lsp.enable('svelte')
+    vim.lsp.enable('vue_ls')
+    vim.lsp.enable('gopls')
+    vim.lsp.enable('eslint')
 
     --[[
-    lspconfig["phpactor"].setup {
+    vim.lsp.enable('phpactor')
+    vim.lsp.config('phpactor', {
       n_attach = on_attach,
       init_options = {
         ["language_server_phpstan.enabled"] = false,
         ["language_server_psalm.enabled"] = false,
       }
-    }
+    })
     ]]--
-    
-    lspconfig["phpactor"].setup {}
 
-    lspconfig["gopls"].setup {}
-
-    lspconfig["eslint"].setup {}
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -162,37 +153,5 @@ return {
         --end, opts)
       end,
     })
-
-    -- ####################
-    -- ## lspsaga
-    -- ####################
-    --require("lspsaga").setup({})
-
-    --keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-    --keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-    --keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
-    --keymap('n', 'gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
-    --keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
-    --keymap("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts)
-    --keymap("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
-
-    -- Disabling since I only need to jump between errors
-    -- keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-    -- keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-
-    -- Jump between errors 
-    --keymap("n", "<space>e", function()
-    --  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    --end, opts)
-    --keymap("n", "<space>r", function()
-    --  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-    --end, opts)
-
-
-    -- //////////////
-    -- Toggleterm
-    -- //////////////
-
-
   end
 }

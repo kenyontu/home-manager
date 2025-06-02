@@ -22,7 +22,7 @@ return {
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
-        endSpace,
+        end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),

@@ -1,5 +1,6 @@
 return {
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
+  enabled = false,
   config = function()
     local nls = require 'null-ls'
     local nlsb = nls.builtins

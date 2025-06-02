@@ -31,6 +31,9 @@ vim.opt.updatetime = 300
 --vim.opt.signcolumn = "yes"
 vim.opt.signcolumn = "no"
 
+-- Neovim 0.11 needs this to show borders on windows
+vim.o.winborder = 'rounded'
+
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
